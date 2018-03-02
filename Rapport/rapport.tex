@@ -124,9 +124,33 @@
 \newpage
 
 \tableofcontents
-
+ 
 \section{Séance 1 - Définition de l'oracle}
+    \subsection{Calculs différentiels}
+        On pose \[ F(q) = \frac{1}{3}<q, r \circ q \circ |q|> + <p_r, A_rq> \] et \[q(q_c) = q^{(0)} + Bq_c \]
+        On cherche à calculer $\nabla F(q(q_c))$ et $H F(q(q_c))$ le Hessien.\\
+        Remarquons tout d'abord que les matrices sont à coefficients réels donc transposition et adjonction sont deux opérations identiques.\\
+        Commencons par $\nabla F(q)$ en écrivant le produit de Hadamard terme à terme et le produit scalaire sous forme de somme :
+        \[ F(q) = \frac{1}{3}\sum_{i = 1}^n q_i^2.r_i.|q_i| + <p_r, A_rq>\]
+        On note alors $\epsilon_i$ le signe de $q_i$ :
+        \[ F(q) = \frac{1}{3}\sum_{i = 1}^n \epsilon_i.r_i.q_i^3 + <p_r, A_rq>\]
+        D'où immédiatement, étant donné que le gradient du second terme est $A_r^T.p_r$ :
+        \[\nabla F(q) = (\epsilon_i.r_i.q_i^2)_{1 \leq i \leq n} + A_r^T.p_r\]
+        On peut le réécrire sans la notation $\epsilon_i$ et en utilisant un produit de Hadamard : 
+        \[ \boxed{\nabla F(q) = (r_i.q_i.|q_i|)_{1 \leq i \leq n} + A_r^T.p_r
+            = r\circ q \circ |q| + A_r^T.p_r}\]
 
+        Puis par composition, comme $q(q_c) = q^{(0)} + q_c$, on a, en notant par abus de notation : $F(q_c) = F(q(q_c))$ :
+        \[ \boxed{\nabla F(q_c) = B^T\nabla F(q) = B^T(r\circ q \circ |q| + A_r^T.p_r)  
+        }\]
+
+        Pour calculer le Hessien, on a tout d'abord, en notant $\text{diag}(X)$ la matrice diagonale possédant sur sa diagonale les coefficients de $X$ :
+        \[H F(q) = \text{diag}(r\circ(q + |q|))\]
+        Par composition, étant donné que le $H(q(q_c)) = 0$ :
+        \[ \boxed{H F(q_c) = H F(q(q_c)) = B^T.\text{diag}(r\circ(q + |q|).B}
+        \] 
+
+    \paragraph{}
 \section{}
 
 \bibliographystyle{abbrv}
