@@ -6,9 +6,9 @@ function [F, G, ind] = OraclePG(qc, ind)
     
     if ind==2 then
         //-----------valeur du critère au point qc
-        //produit scalaire 1
+        //terme 1 produit scalaire 1
         terme1 = q0 + B*qc
-        //produit scalaire 1
+        //terme 2 produit scalaire 1
         terme2 = r.*(q0 + B*qc).*abs(q0 + B*qc)
         F = (1/3)*terme1'*terme2
         //produit scalaire 2
@@ -25,9 +25,9 @@ function [F, G, ind] = OraclePG(qc, ind)
     
     if ind==4 then
         //-----------valeur du critère au point qc
-        //produit scalaire 1
+        //terme 1 produit scalaire 1
         terme1 = q0 + B*qc
-        //produit scalaire 1
+        //terme 2 produit scalaire 1
         terme2 = r.*(q0 + B*qc).*abs(q0 + B*qc)
         F = (1/3)*terme1'*terme2
         //produit scalaire 2
