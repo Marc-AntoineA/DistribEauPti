@@ -9,6 +9,8 @@
 // --------------------------------------
 
    stacksize(10000000);
+   a = "D:\Documents\Ponts ParisTech\Optimisation\Optimisation et controle\DistribEauPti\Scilab\"
+   chdir(a);
 
 // ------------------------------------------
 // Fonctions fournies dans le cadre du projet
@@ -38,9 +40,9 @@
    //
    // Exemple : la fonction "optim" de Scilab
    //
-   //exec('OraclePG.sci');
-   //exec('Optim_Scilab.sci');
-   //titrgr = "Fonction optim de Scilab sur le probleme primal";
+   exec('OraclePG.sci');
+   exec('Optim_Scilab.sci');
+   titrgr = "Fonction optim de Scilab sur le probleme primal";
 
    // -----> A completer...
    // -----> A completer...
@@ -60,7 +62,7 @@
 
    // Exemple : la fonction "optim" de Scilab
    //
-   //[fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
+   [fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
 
    // -----> A completer...
 
