@@ -9,7 +9,7 @@
 // --------------------------------------
 
    stacksize(10000000);
-   a = "D:\Documents\Ponts ParisTech\Optimisation\Optimisation et controle\DistribEauPti\Scilab\"
+   a = "D:\Documents\Ponts ParisTech\Optimisation\Optimisation et controle\DistribEauPti\Scilab\";
    chdir(a);
 
 // ------------------------------------------
