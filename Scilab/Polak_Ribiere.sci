@@ -1,5 +1,5 @@
 
-function [F_opt,x_opt,G_opt] = Polak_Ribiere(Oracle,xini)
+function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
     
     ///////////////////////////////////////////////////////////////////////////////
     //                                                                           //
