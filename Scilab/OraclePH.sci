@@ -45,7 +45,7 @@
     if ind==5 then
         //matrice des dérivées secondes
         q = q0 + B*qc
-        H = B'*diag(r.*(q + abs(q)))*B
+        H = B'*diag(2*r.*abs(q))*B
     end
     
     if ind==6 then
@@ -54,7 +54,7 @@
         G = B'*(r.*q.*abs(q) + Ar'*pr)
         
         //matrice des dérivées secondes
-        H = B'*diag(r.*(q + abs(q)))*B
+        H = B'*diag(2*r.*abs(q))*B
     end
     
     if ind==7 then
@@ -74,5 +74,5 @@
         G = B'*(r.*q.*abs(q) + Ar'*pr)
         
         //matrice des dérivées secondes
-        H = B'*diag(r.*(q + abs(q)))*B
+        H = B'*diag(2*r.*abs(q))*B
     end
