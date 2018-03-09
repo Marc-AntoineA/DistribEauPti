@@ -9,8 +9,6 @@
 // --------------------------------------
 
    stacksize(10000000);
-   a = "D:\Documents\Ponts ParisTech\Optimisation\Optimisation et controle\DistribEauPti\Scilab\";
-   chdir(a);
 
 // ------------------------------------------
 // Fonctions fournies dans le cadre du projet
@@ -24,6 +22,10 @@
     // Resolutions
     exec('Gradient_F.sci');
     exec('Gradient_V.sci');
+    exec('BFGS.sci');
+    exec('Polak_Ribiere.sci');
+    exec('Wolfe_Skel.sci');
+
 
    // Affichage des resultats
 
@@ -45,7 +47,9 @@
    // Exemple : la fonction "optim" de Scilab
    //
    exec('OraclePG.sci');
-   exec('Optim_Scilab.sci');
+   exec('OraclePH.sci');
+   
+   //exec('Optim_Scilab.sci');
    titrgr = "Fonction optim de Scilab sur le probleme primal";
 
    // -----> A completer...
@@ -69,9 +73,18 @@
    [fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
 
    
-   
+   titrgr = "Gradient à pas fixé";
    //Gradient_F(OraclePH, xini);
-   Gradient_V(OraclePH, xini);
+   
+   titrgr = "Gradient à pas variable";
+   //Gradient_V(OraclePH, xini);
+   
+   titrgr = "Polak ribiere";
+   Polak_Ribiere(OraclePH, xini);
+   
+   titrgr = "BFGS";
+   BFGS(OraclePH, xini);
+   
 
 // --------------------------
 // Verification des resultats

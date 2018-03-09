@@ -14,7 +14,7 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
     // Parametres de la methode
     // ------------------------
     
-     titre = "Parametres du gradient a pas fixe";
+     titre = "Parametres de BFGS";
      labels = ["Nombre maximal d''iterations";...
                  "Valeur du pas de gradient";...
                  "Seuil de convergence sur ||G||"];
@@ -43,7 +43,6 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
      for k = 1:iter
     
         //    - valeur du critere et du gradient
-        
         ind = 4;
         [F,G] = Oracle(x,ind);
         //    - test de convergence
@@ -57,18 +56,26 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
         
         if k==1 then
             D = -G;
+            W = eye(n-md,n-md);
         else
             delta_x = alpha*D;
             delta_G = G - G_precedent;
+            
+            if delta_G'*delta_x == 0 then
+                k = iter;
+                break;
+            end
             y = 1/(delta_G'*delta_x);
-            W = (eye(n-md,n-md) - y*delta_x*delta_G') * W_precedent * (eye(n-md,n-md) - y*delta_x*delta_G') + y*delta_x*delta_x';
+            A = eye(n-md,n-md) - y*delta_x*delta_G';
+            W = A * W_precedent * A + y*delta_x*delta_x';
+            D = -W*G;
         end
-        
         //    - calcul de la longueur du pas de gradient
-        
-        [alpha,ok] = Wolke_Skel(alpha,x,D,Oracle);
+        disp(k);
+        [alpha,ok] = Wolfe(alpha,x,D,Oracle);
+        // ?? Question à poser
         if ok==2 then
-            alpha = 1;
+           
         end
         
         //    - mise a jour des variables
@@ -105,39 +112,5 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
     // - visualisation de la convergence
     
     Visualg(logG,logP,Cout);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    [F,G,H,ind] = Oracle(x,6);
-    [F_precedent,G_precedent,H_precedent,ind] = Oracle(x_precedent,3);
-    delta_x = x - x_precedent;
-    delta_G = G - G_precedent;
-    
-    I = eye(n-md,n-md);
-    y = 1/delta_G'*delta_x;
-    W = (I - y*(delta_x*delta_G')) * W_precedent * (y * delta_x*delta_G');
-    
-    d = -W*G;
     
 endfunction

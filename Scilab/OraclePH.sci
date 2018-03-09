@@ -38,8 +38,9 @@
         F = F + terme1'*terme2
         
         //-----------vecteur des dérivées du critère par rapport à qc
-        q = q0 + B*qc
-        G = B'*(r.*q.*abs(q) + Ar'*pr)
+        q = q0 + B*qc;
+        G = B'*(r.*q.*abs(q) + Ar'*pr);
+    
     end
     
     if ind==5 then
@@ -76,3 +77,4 @@
         //matrice des dérivées secondes
         H = B'*diag(2*r.*abs(q))*B
     end
+endfunction

@@ -59,12 +59,8 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
 
 //    - calcul de la longueur du pas de gradient
 
-      [alpha, ok] = Wolfe(alpha, x, D, Oracle);
+      [alpha, ok] = Wolfe(1, x, D, Oracle);
       
-      if ok==2 then
-+            alpha = 1;
-+     end  
-
 //    - mise a jour des variables
 
       x = x + (alpha*D);

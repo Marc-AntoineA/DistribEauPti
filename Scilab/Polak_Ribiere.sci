@@ -14,7 +14,7 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
     // Parametres de la methode
     // ------------------------
     
-     titre = "Parametres du gradient a pas fixe";
+     titre = "Polak Ribiere";
      labels = ["Nombre maximal d''iterations";...
                  "Valeur du pas de gradient";...
                  "Seuil de convergence sur ||G||"];
@@ -47,7 +47,6 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
         ind = 4;
         [F,G] = Oracle(x,ind);
         //    - test de convergence
-        
         if norm(G) <= tol then
           kstar = k;
           break
@@ -59,16 +58,17 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
             D = -G;
         else
             //coefficient beta
-            b = (G_precedent'*G_precedent) * G' * (G - G_precedent);
+            b =  G' * (G - G_precedent)/(G_precedent'*G_precedent) ;
             //nouvelle direction de descente
             D = -G + b*D_precedente;
         end
         
         //    - calcul de la longueur du pas de gradient
         
-        [alpha,ok] = Wolke_Skel(alpha,x,D,Oracle);
+        [alpha,ok] = Wolfe(1,x,D,Oracle);
+        // ??? Question à poser
         if ok==2 then
-            alpha = 1;
+           
         end
         
         //    - mise a jour des variables

@@ -46,7 +46,7 @@ function [fopt,xopt,gopt]=Gradient_F(Oracle,xini)
       [F,G] = Oracle(x,ind);
 
 //    - test de convergence
-
+      
       if norm(G) <= tol then
          kstar = k;
          break
