@@ -1,5 +1,5 @@
 
-function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
+function [fopt,xopt,gopt] = BFGS(Oracle,xini)
     
     ///////////////////////////////////////////////////////////////////////////////
     //                                                                           //
@@ -58,10 +58,10 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
         if k==1 then
             D = -G;
         else
-            //coefficient beta
-            b = (G_precedent'*G_precedent) * G' * (G - G_precedent);
-            //nouvelle direction de descente
-            D = -G + b*D_precedente;
+            delta_x = alpha*D;
+            delta_G = G - G_precedent;
+            y = 1/(delta_G'*delta_x);
+            W = (eye(n-md,n-md) - y*delta_x*delta_G') * W_precedent * (eye(n-md,n-md) - y*delta_x*delta_G') + y*delta_x*delta_x';
         end
         
         //    - calcul de la longueur du pas de gradient
@@ -75,7 +75,7 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
         
         x = x + (alpha*D);
         G_precedent = G;
-        D_precedente = D;
+        W_precedent = W;
         
         //    - evolution du gradient, du pas et du critere
         
@@ -105,5 +105,39 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
     // - visualisation de la convergence
     
     Visualg(logG,logP,Cout);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    [F,G,H,ind] = Oracle(x,6);
+    [F_precedent,G_precedent,H_precedent,ind] = Oracle(x_precedent,3);
+    delta_x = x - x_precedent;
+    delta_G = G - G_precedent;
+    
+    I = eye(n-md,n-md);
+    y = 1/delta_G'*delta_x;
+    W = (I - y*(delta_x*delta_G')) * W_precedent * (y * delta_x*delta_G');
+    
+    d = -W*G;
     
 endfunction
