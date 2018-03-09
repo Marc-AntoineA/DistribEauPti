@@ -21,12 +21,16 @@
    exec('Probleme_R.sce');
    exec('Structures_R.sce');
    
+    // Resolutions
+    exec('Gradient_F.sci');
+    exec('Gradient_V.sci');
+
    // Affichage des resultats
 
    exec('Visualg.sci');
    
    // Verification  des resultats
-
+   
    exec('HydrauliqueP.sci');
    exec('HydrauliqueD.sci');
    exec('Verification.sci');
@@ -64,7 +68,10 @@
    //
    [fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
 
-   // -----> A completer...
+   
+   
+   //Gradient_F(OraclePH, xini);
+   Gradient_V(OraclePH, xini);
 
 // --------------------------
 // Verification des resultats
