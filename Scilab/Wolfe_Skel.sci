@@ -48,7 +48,7 @@ function [alphan,ok]=Wolfe(alpha,x,D,Oracle)
    
    ind = 4;
    [F,G] = Oracle(x,ind);
-
+   gradPhi = G'*D;
    // Initialisation de l'algorithme
 
    alphan = alpha;
@@ -65,18 +65,34 @@ function [alphan,ok]=Wolfe(alpha,x,D,Oracle)
       xn = x + (alphan*D);
 
       // Calcul des conditions de Wolfe
-
-      // -----> A completer...
-      // -----> A completer...
+      // 1ère condition de Wolfe (règle d'Armijo)
+      wolf1 = F + omega1*alphan*gradPhi;
+      
+      // 2ème condition de Wolfe
+      wolf2 = omega2*gradPhi;
 
       // Test de la valeur de alphan :
       // - si les deux conditions de Wolfe sont verifiees,
       //   faire ok = 1 : on sort alors de la boucle while
       // - sinon, modifier la valeur de alphan : on reboucle.
-
-      // -----> A completer...
-      // -----> A completer...
-
+        
+      [Fa, Ga] = Oracle(xn, ind);
+      // Si la première condition de Wolfe n'est pas vérifée
+      if Fa > wolf1 then
+          alphamax = alphan;
+          alphan = (alphamin + alphamax)/2.
+      else
+          if Ga'*D < omega2*G then
+              alphamin = alphan;
+              if alphamax == %inf then
+                  alphan = 2*alphan;
+              else
+                  alphan = (alphamin + alphamax)/2.;
+              end
+          else
+              ok = 1;
+          end
+      end     
       // Test d'indistinguabilite
 
       if norm(xn-xp) < dltx then
