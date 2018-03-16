@@ -75,16 +75,16 @@
 
    
    titrgr = "Gradient à pas fixé";
-   //Gradient_F(OraclePH, xini);
+   //Gradient_F(OraclePG, xini);
    
    titrgr = "Gradient à pas variable";
-   //Gradient_V(OraclePH, xini);
+   //Gradient_V(OraclePG, xini);
    
    titrgr = "Polak ribiere";
-   Polak_Ribiere(OraclePH, xini);
+   Polak_Ribiere(OraclePG, xini);
    
    titrgr = "BFGS";
-   BFGS(OraclePH, xini);
+   BFGS(OraclePG, xini);
    
 
 // --------------------------
