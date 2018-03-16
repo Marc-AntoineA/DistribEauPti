@@ -151,8 +151,25 @@
         \] 
 
     \paragraph{}
-\section{}
+
+\section{Séance 2 - Comparaison des algorithmes}
+
+    \begin{figure}
+        \begin{tabular}{|c|cccccc|}
+            \hline
+            Méthode & Scilab & Pas fixe & Pas variable & Polak-Ribiere & BFGS & Newton \\
+            \hline 
+            Itérations & - & 4094 & 310 & 190 & 23 & 6\\
+            Temps CPU (s) & 0 & 0.34375 & 0.15625 & 0.109375 & 0.03125 & 0\\
+            Critère optimal & -3.734007 & -3.734007 & -3.734007 & -3.734007 & -3.734007 & -3.734007\\
+            Norme du gradient & $10^-7$ & $10^-6$ & $9.10^-7$ & $7.10^-7$ & $4.10^-7$ & $7.85.10^-8$\\
+            \hline
+        \end{tabular}
+        \caption{Comparaison des différents algorithmes}
+        \label{comparAlgo}
+    \end{figure}
 
 \bibliographystyle{abbrv}
 \bibliography{biblio}
 \end{document}
+
