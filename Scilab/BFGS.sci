@@ -61,8 +61,9 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
             delta_x = alpha*D;
             delta_G = G - G_precedent;
             y = 1/(delta_G'*delta_x);
-            A = eye(n-md,n-md) - y*delta_x*delta_G';
-            W = A * W_precedent * A + y*delta_x*delta_x';
+            A1 = eye(n-md,n-md) - y*delta_x*delta_G';
+            A2 = eye(n-md,n-md) - y*delta_G*delta_x';
+            W = A1 * W_precedent * A2 + y*delta_x*delta_x';
             D = -W*G;
         end
         //    - calcul de la longueur du pas de gradient
