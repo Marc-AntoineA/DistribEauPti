@@ -1,4 +1,4 @@
-function []=Visualg(logG,logP,Cout)
+function []=Visualg(logG,logP,Cout,numwin)
 
 
 ///////////////////////////////////////////////////////////////
@@ -26,7 +26,6 @@ function []=Visualg(logG,logP,Cout)
 ///////////////////////////////////////////////////////////////
 
 
-numwin = 10;
 typvis =  1;
 
 [nlig,ncol] = size(logG);

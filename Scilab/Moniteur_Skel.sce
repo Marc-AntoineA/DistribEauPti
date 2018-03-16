@@ -26,6 +26,7 @@
     exec('Polak_Ribiere.sci');
     exec('Wolfe_Skel.sci');
     exec('Optim_Scilab.sci');
+    exec('Newton.sci');
 
 
    // Affichage des resultats
@@ -75,16 +76,19 @@
 
    
    titrgr = "Gradient à pas fixé";
-   //Gradient_F(OraclePG, xini);
+   Gradient_F(OraclePG, xini);
    
    titrgr = "Gradient à pas variable";
-   //Gradient_V(OraclePG, xini);
+   Gradient_V(OraclePG, xini);
    
    titrgr = "Polak ribiere";
    Polak_Ribiere(OraclePG, xini);
    
    titrgr = "BFGS";
    BFGS(OraclePG, xini);
+   
+   titrgr = "Newton";
+   Newton(OraclePH, xini);
    
 
 // --------------------------

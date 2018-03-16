@@ -100,6 +100,6 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
     
     // - visualisation de la convergence
     
-    Visualg(logG,logP,Cout);
+    Visualg(logG,logP,Cout,3);
     
 endfunction

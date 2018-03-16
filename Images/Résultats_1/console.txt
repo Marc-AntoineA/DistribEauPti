@@ -1,0 +1,63 @@
+Fin de la methode d'optimisation integree a Scilab   
+ 
+!Temps CPU         :   0          !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   0.0000001  !
+ 
+ Fin de la methode de gradient a pas fixe   
+ 
+!Iteration         :   4094       !
+!                                 !
+!Temps CPU         :   0.34375    !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   0.0000010  !
+ 
+ Fin de la methode de gradient a pas variable   
+ 
+!Iteration         :   310        !
+!                                 !
+!Temps CPU         :   0.15625    !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   0.0000009  !
+ 
+ Fin de la methode de Polak-Ribiere   
+ 
+!Iteration         :   190        !
+!                                 !
+!Temps CPU         :   0.109375   !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   0.0000007  !
+ 
+ Fin de la methode de BFGS   
+ 
+!Iteration         :   23         !
+!                                 !
+!Temps CPU         :   0.03125    !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   0.0000004  !
+ 
+ Fin de la methode de Newton a pas variable   
+ 
+!Iteration         :   6          !
+!                                 !
+!Temps CPU         :   0          !
+!                                 !
+!Critere optimal   :   -3.734007  !
+!                                 !
+!Norme du gradient :   7.865D-08  !
+ 
+ Verification des equations d'equilibre du reseau   
+ 
+!sur les debits    :   2.220D-16  !
+!                                 !
+!sur les pressions :   7.480D-08  !

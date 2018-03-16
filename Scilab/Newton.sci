@@ -1,4 +1,4 @@
-function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
+function [fopt,xopt,gopt]=Newton(Oracle,xini)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -14,7 +14,7 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
 // Parametres de la methode
 // ------------------------
 
-   titre = "Parametres du gradient a pas variable";
+   titre = "Parametres pour Newton";
    labels = ["Nombre maximal d''iterations";...
              "Valeur du pas de gradient";...
              "Seuil de convergence sur ||G||"];
@@ -25,7 +25,7 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
 // ----------------------------
 // Initialisation des variables
 // ----------------------------
-   
+  
    logG = [];
    logP = [];
    Cout = [];
@@ -41,10 +41,10 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
    kstar = iter;
    for k = 1:iter
 
-//    - valeur du critere et du gradient
+//    - valeur du critere, du gradient et du Hessien
 
-      ind = 4;
-      [F,G] = Oracle(x,ind);
+      ind = 7;
+      [F,G,H] = Oracle(x,ind);
 
 //    - test de convergence
 
@@ -55,12 +55,12 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
 
 //    - calcul de la direction de descente
 
-      D = -G;
+      D = -inv(H)*G;
 
 //    - calcul de la longueur du pas de gradient
 
       [alpha, ok] = Wolfe(1, x, D, Oracle);
-      
+      //alpha = 1
 //    - mise a jour des variables
 
       x = x + (alpha*D);
@@ -87,11 +87,11 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini)
            'Temps CPU         : ' string(tcpu);...
            'Critere optimal   : ' string(fopt);...
            'Norme du gradient : ' string(norm(gopt))];
-   disp('Fin de la methode de gradient a pas variable')
+   disp('Fin de la methode de Newton a pas variable')
    disp(cvge)
 
 // - visualisation de la convergence
 
-   Visualg(logG,logP,Cout,2);
+   Visualg(logG,logP,Cout,5);
 
 endfunction
