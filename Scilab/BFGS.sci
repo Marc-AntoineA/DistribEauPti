@@ -60,11 +60,6 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
         else
             delta_x = alpha*D;
             delta_G = G - G_precedent;
-            
-            if delta_G'*delta_x == 0 then
-                k = iter;
-                break;
-            end
             y = 1/(delta_G'*delta_x);
             A = eye(n-md,n-md) - y*delta_x*delta_G';
             W = A * W_precedent * A + y*delta_x*delta_x';
@@ -72,11 +67,7 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
         end
         //    - calcul de la longueur du pas de gradient
         disp(k);
-        [alpha,ok] = Wolfe(alpha,x,D,Oracle);
-        // ?? Question à poser
-        if ok==2 then
-           
-        end
+        [alpha,ok] = Wolfe(1,x,D,Oracle);
         
         //    - mise a jour des variables
         

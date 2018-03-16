@@ -25,6 +25,7 @@
     exec('BFGS.sci');
     exec('Polak_Ribiere.sci');
     exec('Wolfe_Skel.sci');
+    exec('Optim_Scilab.sci');
 
 
    // Affichage des resultats
