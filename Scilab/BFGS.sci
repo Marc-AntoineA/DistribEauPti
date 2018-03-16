@@ -66,7 +66,6 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
             D = -W*G;
         end
         //    - calcul de la longueur du pas de gradient
-        disp(k);
         [alpha,ok] = Wolfe(1,x,D,Oracle);
         
         //    - mise a jour des variables
@@ -97,7 +96,7 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
                'Temps CPU         : ' string(tcpu);...
                'Critere optimal   : ' string(fopt);...
                'Norme du gradient : ' string(norm(gopt))];
-    disp('Fin de la methode de gradient a pas fixe')
+    disp('Fin de la methode de BFGS')
     disp(cvge)
     
     // - visualisation de la convergence

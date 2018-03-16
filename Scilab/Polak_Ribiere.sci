@@ -66,10 +66,6 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
         //    - calcul de la longueur du pas de gradient
         
         [alpha,ok] = Wolfe(1,x,D,Oracle);
-        // ??? Question à poser
-        if ok==2 then
-           
-        end
         
         //    - mise a jour des variables
         
@@ -99,7 +95,7 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
                'Temps CPU         : ' string(tcpu);...
                'Critere optimal   : ' string(fopt);...
                'Norme du gradient : ' string(norm(gopt))];
-    disp('Fin de la methode de gradient a pas fixe')
+    disp('Fin de la methode de Polak-Ribiere')
     disp(cvge)
     
     // - visualisation de la convergence
