@@ -13,6 +13,7 @@
 \usepackage{cancel}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{subcaption}
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
 \definecolor{delim}{RGB}{20,105,176}
@@ -152,9 +153,66 @@
 
     \paragraph{}
 
-\section{Séance 2 - Comparaison des algorithmes}
+\section{Séances 2 et 3 - Implémentations d'algorithmes}
 
+    Nous avons cherché à résoudre le problème d'optimisation avec différents algorithmes vus en cours :
+    \begin{itemize}
+        \item Mise en place d'une recherche linéaire vérifiant les conditions de Wolfe avec l'algorithme de Fletcher-Lemaréchal. Cette étape permet de trouver un pas optimal et conduit notamment à l'\textbf{algorithme de gradient à pas variable}.
+        \item Mise en place de l'algorithme de \textbf{Polak-Ribière}, algorithme de gradient conjugué non-linéaire où la direction étudiée dépend de la direction de l'étape précédente.
+        \item Mise en place de \textbf{l'algorithme de BFGS} (Broyden-Fletcher-Goldfarb-Shanno) qui est une méthode de quasi-Newton où on utilise une approximation de l'inverse du Hessien de la fonction à minimiser.
+        \item Mise en place de \textbf{l'algorithme de Newton} qui n'approxime pas l'inverse du Hessien
+    \end{itemize}
+
+    \paragraph{}Nous avons obtenu les résultats présentés sur la Figure \ref{fig:courbes} et synthétisés sur le Tableau \ref{comparAlgo}. Nous remarquons notamment les points suivants :
+    \begin{itemize}
+        \item L'ajout de la recherche linéaire via l'algorithme de Fletcher-Lemaréchal est une très bonne amélioration qui demande un peu plus de calculs par itération mais en en faisant près de $10\times$ moins demeure deux fois plus rapide qu'un algorithme de gradient à pas fixe.
+        \item L'algorithme de Newton est extrêmement rapide (6 itérations) mais demande une bonne connaissance du problème (le Hessien) : toutefois une approximation de ce Hessien, comme à travers l'algorithme BFGS donne également d'excellents résultats.
+        \item L'initialisation dans l'algorithme de Fletcher-Lemaréchal est importante. Si on initialise avec le $\alpha$ précédent, comme sur la Figure \ref{fig:pas_variableAlpha}, alors la convergence est très mauvaise.
+        \item On remarque que l'algorithme de Fletcher-Lemaréchal fait osciller le pas de gradient.
+    \end{itemize}
+
+    
     \begin{figure}
+        \begin{subfigure}[t]{0.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/Pas_fixe.png}
+            \label{fig:pas_fixe}
+            \caption{Gradient à pas fixe}        
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/Pas_variable.png}
+            \label{fig:pas_variable}
+            \caption{Gradient à pas variable (conditions de Wolfe)}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/pas_variable_initAlpha.png}
+            \label{fig:pas_variableAlpha}
+            \caption{Gradient à pas variable où Fletcher-Lemaréchal initialité avec $\alpha$ précédent}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/Polak_Ribiere.png}
+            \label{fig:Polak_Ribiere}
+            \caption{Polak-Ribière}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/BFGS.png}
+            \label{fig:BFGS}
+            \caption{BFGS}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[t]{.4\textwidth}
+            \includegraphics[width=\textwidth]{../Images/Newton.png}
+            \label{fig:BFGS}
+            \caption{Newton}
+        \end{subfigure}
+        \label{fig:courbes}
+        \caption{Comparaison des différents algorithmes implémentés}
+    \end{figure}
+    \begin{figure}
+
         \begin{tabular}{|c|cccccc|}
             \hline
             Méthode & Scilab & Pas fixe & Pas variable & Polak-Ribiere & BFGS & Newton \\
@@ -169,7 +227,5 @@
         \label{comparAlgo}
     \end{figure}
 
-\bibliographystyle{abbrv}
-\bibliography{biblio}
 \end{document}
 
