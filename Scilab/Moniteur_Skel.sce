@@ -72,23 +72,23 @@
 
    // Exemple : la fonction "optim" de Scilab
    //
-   [fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
+   //[fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
 
    
    titrgr = "Gradient à pas fixé";
-   Gradient_F(OraclePG, xini);
+   //Gradient_F(OraclePG, xini);
    
    titrgr = "Gradient à pas variable";
-   Gradient_V(OraclePG, xini);
+   //Gradient_V(OraclePG, xini);
    
    titrgr = "Polak ribiere";
-   Polak_Ribiere(OraclePG, xini);
+   //Polak_Ribiere(OraclePG, xini);
    
    titrgr = "BFGS";
    BFGS(OraclePG, xini);
    
    titrgr = "Newton";
-   Newton(OraclePH, xini);
+   //Newton(OraclePH, xini);
    
 
 // --------------------------

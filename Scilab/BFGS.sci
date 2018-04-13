@@ -8,7 +8,7 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
     //         Methode de gradient a pas fixe                                    //
     //                                                                           //
     ///////////////////////////////////////////////////////////////////////////////
-
+    
 
     // ------------------------
     // Parametres de la methode
@@ -22,6 +22,10 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
      default = ["5000";"0.0005";"0.000001"];
      [ok,iter,alphai,tol] = getvalue(titre,labels,typ,default);
      alpha = alphai;
+     
+     //dimension
+     dim = size(xini)
+     dim = dim(1)
     
     // ----------------------------
     // Initialisation des variables
@@ -56,13 +60,13 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
         
         if k==1 then
             D = -G;
-            W = eye(n-md,n-md);
+            W = eye(dim, dim);
         else
             delta_x = alpha*D;
             delta_G = G - G_precedent;
             y = 1/(delta_G'*delta_x);
-            A1 = eye(n-md,n-md) - y*delta_x*delta_G';
-            A2 = eye(n-md,n-md) - y*delta_G*delta_x';
+            A1 = eye(dim, dim) - y*delta_x*delta_G';
+            A2 = eye(dim, dim) - y*delta_G*delta_x';
             W = A1 * W_precedent * A2 + y*delta_x*delta_x';
             D = -W*G;
         end
