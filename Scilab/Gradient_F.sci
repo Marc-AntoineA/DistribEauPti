@@ -1,4 +1,4 @@
-function [fopt,xopt,gopt]=Gradient_F(Oracle,xini)
+function [fopt,xopt,gopt]=Gradient_F(Oracle,xini,num_fenetre)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -91,6 +91,6 @@ function [fopt,xopt,gopt]=Gradient_F(Oracle,xini)
 
 // - visualisation de la convergence
 
-   Visualg(logG,logP,Cout,1);
+   Visualg(logG,logP,Cout,num_fenetre);
 
 endfunction

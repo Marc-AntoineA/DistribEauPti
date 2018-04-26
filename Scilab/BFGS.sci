@@ -1,5 +1,5 @@
 
-function [fopt,xopt,gopt] = BFGS(Oracle,xini)
+function [fopt,xopt,gopt] = BFGS(Oracle,xini,num_fenetre)
     
     ///////////////////////////////////////////////////////////////////////////////
     //                                                                           //
@@ -106,6 +106,6 @@ function [fopt,xopt,gopt] = BFGS(Oracle,xini)
     
     // - visualisation de la convergence
     
-    Visualg(logG,logP,Cout,4);
+    Visualg(logG,logP,Cout,num_fenetre);
     
 endfunction

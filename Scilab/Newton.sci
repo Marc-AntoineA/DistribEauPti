@@ -1,4 +1,4 @@
-function [fopt,xopt,gopt]=Newton(Oracle,xini)
+function [fopt,xopt,gopt]=Newton(Oracle,xini,num_fenetre)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -92,6 +92,6 @@ function [fopt,xopt,gopt]=Newton(Oracle,xini)
 
 // - visualisation de la convergence
 
-   Visualg(logG,logP,Cout,5);
+   Visualg(logG,logP,Cout,num_fenetre);
 
 endfunction

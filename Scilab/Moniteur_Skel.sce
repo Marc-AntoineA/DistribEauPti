@@ -50,8 +50,10 @@
    //
    exec('OraclePG.sci');
    exec('OraclePH.sci');
+   exec('OracleDG.sci');
+   exec('OracleDH.sci');
    
-   //exec('Optim_Scilab.sci');
+   exec('Optim_Scilab.sci');
    titrgr = "Fonction optim de Scilab sur le probleme primal";
 
    // -----> A completer...
@@ -65,6 +67,7 @@
    // La dimension (n-md) est celle du probleme primal
 
    xini = 0.1 * rand(n-md,1);
+   lambda_ini = 0.1 * rand(md,1);
 
 // ----------------------------
 // Minimisation proprement dite
@@ -72,23 +75,33 @@
 
    // Exemple : la fonction "optim" de Scilab
    //
-   //[fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
+   [fopt,xopt,gopt] = Optim_Scilab(OraclePG,xini);
 
    
    titrgr = "Gradient à pas fixé";
-   //Gradient_F(OraclePG, xini);
+   //Gradient_F(OraclePG, xini, 1);
+   titrgr = "Gradient à pas fixé : problème dual";
+   //Gradient_F(OracleDG, lambda_ini, 2);
    
    titrgr = "Gradient à pas variable";
-   //Gradient_V(OraclePG, xini);
+   //Gradient_V(OraclePG, xini, 3);
+   titrgr = "Gradient à pas variable : problème dual";
+   //Gradient_V(OracleDG, lambda_ini, 4);
    
    titrgr = "Polak ribiere";
-   //Polak_Ribiere(OraclePG, xini);
+   //Polak_Ribiere(OraclePG, xini, 5);
+   titrgr = "Polak ribiere : problème dual";
+   Polak_Ribiere(OracleDG, lambda_ini, 6);
    
    titrgr = "BFGS";
-   BFGS(OraclePG, xini);
+   //BFGS(OraclePG, xini, 7);
+   titrgr = "BFGS : problème dual";
+   //BFGS(OracleDG, lambda_ini, 8);
    
    titrgr = "Newton";
-   //Newton(OraclePH, xini);
+   //Newton(OraclePH, xini, 9);
+   titrgr = "Newton : problème dual";
+   //Newton(OracleDH, lamda_ini, 10);
    
 
 // --------------------------

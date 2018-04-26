@@ -1,5 +1,5 @@
 
-function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
+function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini,num_fenetre)
     
     ///////////////////////////////////////////////////////////////////////////////
     //                                                                           //
@@ -100,6 +100,6 @@ function [fopt,xopt,gopt] = Polak_Ribiere(Oracle,xini)
     
     // - visualisation de la convergence
     
-    Visualg(logG,logP,Cout,3);
+    Visualg(logG,logP,Cout,num_fenetre);
     
 endfunction
