@@ -1,7 +1,7 @@
 function [q_diez] = calc_q_diez(lambda)
     //calcule le q_diez, résultat le la minimisation en q
-    z = -(Ad'*lambda + Ar'*pr) ./ r;
-    q_diez = sign(z) .* z;
+    z0 = -(Ad'*lambda + Ar'*pr) ./ r;
+    q_diez = sign(z0) .* sqrt(abs(z0));
 endfunction
 
 function L = lagrange(q, lambda)

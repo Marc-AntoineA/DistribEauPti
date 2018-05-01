@@ -41,9 +41,4 @@ function [F, G, ind] = OracleDG(lambda, ind)
     F = -F;
     G = -G;
     
-    //disp(F);
-    //disp(G);
-    //disp(q_diez);
-    disp(" ");
-    
  endfunction
