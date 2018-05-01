@@ -384,19 +384,56 @@
 
         $$ H_{\lambda} \Phi (\lambda) = \nabla_q (A_d q^{\#} - f_d) \nabla_{\lambda} q^{\#} $$
 
-
-
         Or, on peut exprimer la jacobienne de $q^{\#}$ par rapport à $\lambda$ en remarquant que :
 
-        $$ \frac{\partial}{\partial \lambda_j} (r_i q_i^{\#} | q_i^{\#} |) = - (A_d^T)_{ij} $$
+        $$ \frac{\partial}{\partial \lambda_j} (r_i\circ q_i^{\#}\circ |q_i^{\#}|) = - (A_d^T)_{ij} $$
+        
+        $$ \frac{\partial q_i^{\#}}{\partial \lambda_j} = \frac{-1}{2r_i\circ |q_i^{\#}|} (A_d^T)_{ij} $$
 
-        $$ \frac{\partial q_i^{\#}}{\partial \lambda_j} = \frac{-1}{2 r_i |q_i^{\#}|} (A_d^T)_{ij} $$
-
-        $$ \nabla_{\lambda} q^{\#} = \frac{-1}{2} diag\big(\frac{1}{r_i |q_i^{\#}|}\big) A_d^T $$
-
+        $$ \nabla_{\lambda} q^{\#} = \frac{-1}{2} diag\big(\frac{1}{r_i\circ |q_i^{\#}|}\big) A_d^T $$
 
 
         Et alors on obtient :
-        $$\boxed{H_{\lambda} \Phi (\lambda) = \frac{-1}{2} A_d diag\big(\frac{1}{r_i |q_i^{\#}|}\big) A_d^T} $$
+        $$\boxed{H_{\lambda} \Phi (\lambda) = \frac{-1}{2} A_d diag\big(\frac{1}{r_i\circ|q_i^{\#}|}\big) A_d^T} $$
+
+        \paragraph{Q4.} On observe sur la figure \ref{fig:courbes_dual} les résultats suivants :
+        \begin{itemize}
+
+
+        \end{itemize}
+
+        \begin{figure}
+            \begin{subfigure}[t]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{../Images/Pas_fixe_dual.png}
+                \caption{Gradient à pas fixe}
+                \label{fig:pas_fixe_dual}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{.4\textwidth}
+                \includegraphics[width=\textwidth]{../Images/Pas_variable_dual.png}
+                \caption{Gradient à pas variable (conditions de Wolfe)}
+                \label{fig:pas_variable_dual}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{.4\textwidth}
+                \includegraphics[width=\textwidth]{../Images/Polak_Ribiere_dual.png}
+                \caption{Polak-Ribière}
+                \label{fig:Polak_Ribiere}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{.4\textwidth}
+                \includegraphics[width=\textwidth]{../Images/BFGS_dual.png}
+                \caption{BFGS}
+                \label{fig:BFGS_dual}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[t]{.4\textwidth}
+                \includegraphics[width=\textwidth]{../Images/Newton_dual.png}
+                \caption{Newton}
+                \label{fig:Newton_dual}
+            \end{subfigure}
+            \caption{Comparaison des différents algorithmes implémentés sur le problème dual}
+            \label{fig:courbes_dual}
+        \end{figure}
 \end{document}
 
