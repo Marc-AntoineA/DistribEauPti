@@ -15,22 +15,22 @@ function [F, G, H, ind] = OracleDH(lambda, ind)
     F = 0
     G = 0
     H = 0
+    
+    z0 = -(Ad'*lambda + Ar'*pr) ./ r;
+    q_diez = sign(z0) .* sqrt(abs(z0));
      
     if ind==2 then
         //-----------valeur de phi en lambda
-        q_diez = calc_q_diez(lambda);
         F = lagrange(q_diez, lambda);
     end
     
     if ind==3 then
         //-----------gradient de phi par rapport à lambda
-        q_diez = calc_q_diez(lambda);
         G = Ad*q_diez - fd;
     end
     
     if ind==4 then
         //-----------valeur de phi en lambda
-        q_diez = calc_q_diez(lambda);
         F = lagrange(q_diez, lambda);
         
         //-----------gradient de phi par rapport à lambda
@@ -40,14 +40,12 @@ function [F, G, H, ind] = OracleDH(lambda, ind)
     
     if ind==5 then
         //----------hessienne de phi par rapport à lambda
-        q_diez = calc_q_diez(lambda);
         d = ones(q_diez) ./ (abs(q_diez) .* r);
         H = -Ad*diag(d)*Ad' / 2;
     end
     
     if ind==6 then
         //-----------gradient de phi par rapport à lambda
-        q_diez = calc_q_diez(lambda);
         G = Ad*q_diez - fd;
         
         //----------hessienne de phi par rapport à lambda
@@ -57,7 +55,6 @@ function [F, G, H, ind] = OracleDH(lambda, ind)
     
     if ind==7 then
         //-----------valeur de phi en lambda
-        q_diez = calc_q_diez(lambda);
         F = lagrange(q_diez, lambda);
         
         //-----------gradient de phi par rapport à lambda

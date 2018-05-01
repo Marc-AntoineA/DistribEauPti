@@ -1,10 +1,9 @@
 
 function [q_diez] = calc_q_diez(lambda)
     //calcule le q_diez, résultat le la minimisation en q
-    z = (Ad'*lambda + Ar'*pr) ./ r;
-    disp(norm(z));
-    //q_diez = sign(z) .* sqrt(abs(z));
-    q_diez = - z ./ sqrt(abs(z));
+    z0 = (Ad'*lambda + Ar'*pr) ./ r;
+    q_diez = sign(z0) .* sqrt(abs(z0));
+    //q_diez = - z ./ sqrt(abs(z));
 endfunction
 
 function [L] = lagrange(q, lambda)
@@ -17,24 +16,23 @@ function [F, G, ind] = OracleDG(lambda, ind)
     
     F = 0
     G = 0
-    q_diez = 0;
+    z0 = (Ad'*lambda + Ar'*pr) ./ r;
+    q_diez = - sign(z0) .* sqrt(abs(z0));
+    //q_diez = - z0 ./ sqrt(abs(z0));
     
     if ind==2 then
         //-----------valeur de phi en lambda
-        q_diez = calc_q_diez(lambda);
-        F = lagrange(q_diez, lambda);
+        [F] = lagrange(q_diez, lambda);
     end
     
     if ind==3 then
         //-----------gradient de phi par rapport à lambda
-        q_diez = calc_q_diez(lambda);
         G = Ad*q_diez - fd;
     end
     
     if ind==4 then
         //-----------valeur de phi en lambda
-        q_diez = calc_q_diez(lambda);
-        F = lagrange(q_diez, lambda);
+        [F] = lagrange(q_diez, lambda);
         
         //-----------gradient de phi par rapport à lambda
         G = Ad*q_diez - fd;
@@ -45,7 +43,7 @@ function [F, G, ind] = OracleDG(lambda, ind)
     
     //disp(F);
     //disp(G);
-    disp(q_diez);
+    //disp(q_diez);
     disp(" ");
     
  endfunction

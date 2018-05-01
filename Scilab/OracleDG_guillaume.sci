@@ -5,7 +5,6 @@ endfunction
 function [F, G, ind] = OracleDG_guillaume(lambda, ind)
     z = (Ar'*pr + Ad'*lambda)./r;
     qdieze = -g(z)
-    disp(norm(z));
     F=0;
     G=0;
     if ind==2 then
@@ -23,6 +22,7 @@ function [F, G, ind] = OracleDG_guillaume(lambda, ind)
     
     //disp(F);
     //disp(G);
-    disp(qdieze);
+    //disp(qdieze);
+    disp(norm(z));
     disp(" ");
 endfunction

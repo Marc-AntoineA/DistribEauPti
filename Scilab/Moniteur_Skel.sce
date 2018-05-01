@@ -83,27 +83,26 @@
    //Gradient_F(OraclePG, xini, 1);
    titrgr = "Gradient à pas fixé : problème dual";
    Gradient_F(OracleDG, lambda_ini, 2);
-   Gradient_F(OracleDG_guillaume, lambda_ini, 2);
    
    titrgr = "Gradient à pas variable";
    //Gradient_V(OraclePG, xini, 3);
    titrgr = "Gradient à pas variable : problème dual";
-   //Gradient_V(OracleDG, lambda_ini, 4);
+   Gradient_V(OracleDH, lambda_ini, 4);
    
    titrgr = "Polak ribiere";
    //Polak_Ribiere(OraclePG, xini, 5);
    titrgr = "Polak ribiere : problème dual";
-   //Polak_Ribiere(OracleDG, lambda_ini, 6);
+   Polak_Ribiere(OracleDG, lambda_ini, 6);
    
    titrgr = "BFGS";
    //BFGS(OraclePG, xini, 7);
    titrgr = "BFGS : problème dual";
-   //BFGS(OracleDG, lambda_ini, 8);
+   BFGS(OracleDG, lambda_ini, 8);
    
    titrgr = "Newton";
    //Newton(OraclePH, xini, 9);
    titrgr = "Newton : problème dual";
-   //Newton(OracleDH, lambda_ini, 10);
+   Newton(OracleDH, lambda_ini, 10);
    
 
 // --------------------------
