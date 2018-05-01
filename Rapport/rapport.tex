@@ -14,6 +14,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{subcaption}
+\usepackage{mdframed}
 \colorlet{punct}{red!60!black}
 \definecolor{background}{HTML}{EEEEEE}
 \definecolor{delim}{RGB}{20,105,176}
@@ -69,14 +70,27 @@
         {Â}{{\^{A}}}1
         {Î}{{\^{I}}}1,
 }
+
 \newcommand{\deriv}{\mathrm{d}}
 \usepackage{array,multirow,makecell}
 \usepackage[top=3cm, bottom=3cm, left=3cm,right=3cm]{geometry}
 \usepackage{bbold}
 
 
-\newtheorem{lemma}{Lemme}
+\newmdtheoremenv{theorem}{Théorème}
+\newenvironment{proof}
+  {\par\noindent\normalfont\textbf{Preuve.}\par\nopagebreak%
+  \begin{mdframed}[
+     linewidth=1pt,
+     linecolor=black,
+     bottomline=false,topline=false,rightline=false,
+     innerrightmargin=0pt,innertopmargin=0pt,innerbottommargin=0pt,
+     innerleftmargin=1em,% Distance between vertical rule & proof content
+     skipabove=.5\baselineskip
+   ]}
+  {\end{mdframed}}
 
+\newtheorem{lemma}{Lemme}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead[L]{M. \bsc{Augé} et M. \bsc{Roux}}
@@ -128,7 +142,10 @@
  
 \section{Séance 1 - Définition de l'oracle}
     \subsection{Calculs différentiels}
-        On pose \[ F(q) = \frac{1}{3}<q, r \circ q \circ |q|> + <p_r, A_rq> \] et \[q(q_c) = q^{(0)} + Bq_c \]
+        On pose 
+        \[ F(q) = \frac{1}{3}<q, r \circ q \circ |q|> + <p_r, A_rq> \] 
+        et 
+        \[q(q_c) = q^{(0)} + Bq_c \]
         On cherche à calculer $\nabla F(q(q_c))$ et $H F(q(q_c))$ le Hessien.\\
         Remarquons tout d'abord que les matrices sont à coefficients réels donc transposition et adjonction sont deux opérations identiques.\\
         Commencons par $\nabla F(q)$ en écrivant le produit de Hadamard terme à terme et le produit scalaire sous forme de somme :
@@ -152,6 +169,104 @@
         \] 
 
     \paragraph{}
+\section{Résultats théoriques entre les séances}
+    \subsection{Équivalence des problèmes 13, 14 et 19}
+    On pose les problèmes : 
+
+    \begin{equation}
+        \left\{
+        \begin{array}{rrclll}
+        \displaystyle \text{Min} & \multicolumn{4}{l}{\displaystyle \frac{1}{3}<q, r\circ q \circ |q|> + <p_r, f_r>}\\
+        \textrm{s.c.}
+            & q\in \mathbb{R}^n \\ 
+            & f_r \in \mathbb{R}^{m_r}             
+            & Aq - f = 0\\
+                                    
+        \end{array}
+        \right.
+        \label{pb:13}
+    \end{equation}
+
+    \begin{equation}
+        \left\{
+        \begin{array}{rrclll}
+        \displaystyle \text{Min} & \multicolumn{4}{l}{\displaystyle \frac{1}{3}<q, r\circ q \circ |q|> + <p_r, A_rq>}\\
+        \textrm{s.c.}         
+            & q\in \mathbb{R}^n \\           
+            & A_dq - f_d = 0\\
+                                    
+        \end{array}
+        \right.
+        \label{pb:14}
+    \end{equation}
+
+    \begin{equation}
+        \left\{
+        \begin{array}{rrclll}
+        \displaystyle \text{Min} & \multicolumn{4}{l}{\displaystyle \frac{1}{3}<q^{(0)} + Bq_c, r\circ (q^{(0)} + Bq_c) \circ |q^{(0)} + Bq_c|> + <p_r, A_r(q^{(0)} + Bq_c)>}\\
+        \textrm{s.c.}
+            & q_c\in \mathbb{R}^{n - m_d} \\ 
+                                    
+        \end{array}
+        \right.
+        \label{pb:19}
+    \end{equation}
+    \begin{theorem}
+        Les problèmes \ref{pb:13}, \ref{pb:14} et \ref{pb:19} sont équivalents.    
+    \end{theorem}
+
+    \begin{proof}
+        
+        \begin{lemma}
+            Les problèmes \ref{pb:13} et \ref{pb:14} sont équivalents.    
+        \end{lemma}
+        \begin{proof}
+            On partitionne le graphe en deux : d'un côté les n\oe uds dont les pressions sont connues ($p_r$) et d'un autre côté celles non connues ($p_d$)\\
+            La contrainte $Aq - f = 0$ se réécrit avec cette décomposition : 
+            \[ A_rq = f_r \text{ et } A_dq = f_d\]
+            De fait, en injectant $A_rq = f_r$ dans la fonction objectif, les deux problèmes sont équivalents.        
+        \end{proof}
+        \begin{lemma}
+            Les problèmes \ref{pb:14} et \ref{pb:19} sont équivalents.    
+        \end{lemma}
+        \begin{proof}
+            Prouvons tout d'abord que \ref{pb:14} implique \ref{pb:19} :\\
+            On souhaite intégrer la contrainte $A_dq - f_d = 0$ à la fonction objectif. Pour faire cela, on aimerait dire "$q = A_d^{-1}f_d$" mais $A_d$ n'est, a priori ni carrée, ni inversible.\\
+            On pose alors $A_d = (A_{d, T}, A_{d, C})$ de sorte à avoir $A_{d, T}$ inversible et de rang maximal ($rg A_d = rg A_{d, T}$).\\
+            On applique cette même partition à $q = (q_T, q_C)^T$ et la contrainte du problème \ref{pb:14} se réécrit :
+            \[A_{d, T}q_T + A_{d, C}q_C - f_d = 0 \]
+            Ou, puis-ce que $A_{d, T}$ est inversible :
+            \[ \boxed{q_T = A_{d, T}^{-1}(f_d - A_{d, C}q_C)} \]
+
+            On pose alors $B = (-A_{d, T}^{-1}A_{d,C}, I_{n - m_d})^T$ et $q^{(0)} = (A_{d, T}^{-1}f_d, 0)^T$ de sorte à avoir :
+            \[ q = q^{(0)} + Bq_c \]
+
+            Ce qui donne le résultat en injectant dans la fonction objectif de \ref{pb:14}.\\
+            
+            Enfin, \ref{pb:19} implique \ref{pb:14} en réécrivant $B$ et $q$ et en rajoutant des contraintes pour traduire $q_T = A_{d, T}^{-1}(f_d - A_{d, C}q_C)$.           
+        \end{proof}
+
+        D'après les deux lemmes précédents, les problèmes \ref{pb:13}, \ref{pb:14} et \ref{pb:19} sont tous trois équivalents.
+    \end{proof}
+
+    \subsection{Unicité des solutions de \ref{pb:14} et de \ref{pb:19}}
+
+    \paragraph{Stricte convexité du critère du problème \ref{pb:14} :}D'une part, $q \mapsto <p_r, A_rq>$ est strictement convexe car linéaire. D'autre part, on peut réécrire le premier produit scalaire comme suit :
+    \[<q, r\circ q \circ|q|> = \sum_i q_i.q_i|q_i|\]
+    Or, chaque terme de cette somme est fortement convexe (\textit{cf.} figure \ref{courbe}) car les résistances sont positives donc le critère est convexe.
+    \begin{figure}
+        \begin{center}
+            \includegraphics[width=0.4\textwidth]{courbe.png}
+        \end{center}
+            \caption{$x^2.|x|$}
+            \label{courbe}
+    \end{figure}
+
+    \paragraph{Stricte convexité du critère du problème \ref{pb:19} :} Pour les mêmes arguments, puis-ce que $q_c \mapsto q^{(0)} + Bq_c$ est une fonction convexe et par composition de fonctions convexes : le critère du problème \ref{pb:19} est convexe.
+
+    \paragraph{Unicité de la solution du problème \ref{pb:19} :} Le critère est strictement convexe, s.c.i, cooercif puis-ce que $<p_r, q^{(0)} + Bq_c> = 0(<q^{(0)} + Bq_c, r\circ q^{(0)} + Bq_c \circ|q^{(0)} + Bq_c|>)$ et donc admet une unique solution, d'après le théorème \textbf{5.3} du cours.\\
+    On en déduit alors, par équivalence des problèmes \ref{pb:14} et \ref{pb:19} que le problème \ref{pb:14} admet au moins une solution qui est unique par la stricte convexité du critère.
+
 
 \section{Séances 2 et 3 - Implémentations d'algorithmes}
 
@@ -175,41 +290,41 @@
     \begin{figure}
         \begin{subfigure}[t]{0.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/Pas_fixe.png}
+            \caption{Gradient à pas fixe}
             \label{fig:pas_fixe}
-            \caption{Gradient à pas fixe}        
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/Pas_variable.png}
-            \label{fig:pas_variable}
             \caption{Gradient à pas variable (conditions de Wolfe)}
+            \label{fig:pas_variable}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/pas_variable_initAlpha.png}
-            \label{fig:pas_variableAlpha}
             \caption{Gradient à pas variable où Fletcher-Lemaréchal initialité avec $\alpha$ précédent}
+            \label{fig:pas_variableAlpha}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/Polak_Ribiere.png}
-            \label{fig:Polak_Ribiere}
             \caption{Polak-Ribière}
+            \label{fig:Polak_Ribiere}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/BFGS.png}
-            \label{fig:BFGS}
             \caption{BFGS}
+            \label{fig:BFGS}
         \end{subfigure}
         \hfill
         \begin{subfigure}[t]{.4\textwidth}
             \includegraphics[width=\textwidth]{../Images/Newton.png}
-            \label{fig:BFGS}
             \caption{Newton}
+            \label{fig:BFGS}
         \end{subfigure}
-        \label{fig:courbes}
         \caption{Comparaison des différents algorithmes implémentés}
+        \label{fig:courbes}
     \end{figure}
     \begin{figure}
 
@@ -227,5 +342,61 @@
         \label{comparAlgo}
     \end{figure}
 
+    \section{Séance 4 - Minimisation du problème contraint}
+        \paragraph{Q.1} Le lagrangien du problème \textbf{14} s'écrit : 
+        \[ \mathcal{L}(\lambda, q) = \frac{1}{3}<q, r \circ q \circ |q|> + <p_r, A_rq>
+                                    + <\lambda, A_dq - f_d> \]
+        
+        Les conditions nécessaires d'optimalité sont, étant donné que $\mathcal{L}$ est différentiable :
+        \[ \nabla \mathcal{L}_q  = 0
+            \text{ et } 
+            \nabla_\lambda \min_q \mathcal{L}(q, \lambda) = 0 \]
+        
+        La première condition se réécrit : 
+        \[ 0 = \nabla \mathcal{L}_q  = r \circ q \circ |q| + A_r^Tp_r + A_d^T\lambda \]
+
+        Ce qui se réécrit, correspondant à \textbf{l'expression 8} :
+        \[ 0 = r \circ q \circ |q| + A^Tp \]
+
+        où l'on note :
+        \[ A = (A_r, A_d)^T \text{ et } p = (p_r, \lambda)^T \]
+
+        La deuxième condition d'optimalité s'écrit, où $\hat{q}$ est un minimiseur de $\mathcal{L}$ :
+        \[ A_d \hat{q}(\lambda) - f_d = 0 \]
+
+        Puis, comme $f_r = A_r \hat{q}$, on retrouve \textbf{l'expression 6} :
+        \[ A \hat{q} = f \]
+
+        \paragraph{Q.2.} D'après l'expression vérifiée par $\hat{q}$, on peut l'obtenir de manière explicite.
+        On introduit pour cela le vecteur $\epsilon$ des signes :
+        \[\epsilon_i = -\frac{1}{r_i}(A^T.p)_i\]
+
+        Et on obtient : 
+        \[ \boxed{q_i = \epsilon_i \sqrt\left| \frac{1}{r_i}\left(A^T.p\right)_i\right|}\]
+
+        La fonction duale $\Phi(\hat{q}) = \min_q \mathcal{L}(q, \lambda)$ s'écrit alors :
+        \[\boxed{\Phi = \frac{1}{3}<\hat{q}(\lambda), r \circ \hat{q}(\lambda) \circ |\hat{q}(\lambda)|> + <p_r, A_r\hat{q}(\lambda)>
+        + <\lambda, A_d\hat{q}(\lambda) - f_d>}\]
+        
+        Le Hessien se calcule comme suit :
+        $$ \Phi (\lambda) = \mathcal{L} (q^{\#}, \lambda) $$
+        $$ \nabla_{\lambda} \Phi (\lambda) = A_d q^{\#} - f_d $$
+
+        $$ H_{\lambda} \Phi (\lambda) = \nabla_q (A_d q^{\#} - f_d) \nabla_{\lambda} q^{\#} $$
+
+
+
+        Or, on peut exprimer la jacobienne de $q^{\#}$ par rapport à $\lambda$ en remarquant que :
+
+        $$ \frac{\partial}{\partial \lambda_j} (r_i q_i^{\#} | q_i^{\#} |) = - (A_d^T)_{ij} $$
+
+        $$ \frac{\partial q_i^{\#}}{\partial \lambda_j} = \frac{-1}{2 r_i |q_i^{\#}|} (A_d^T)_{ij} $$
+
+        $$ \nabla_{\lambda} q^{\#} = \frac{-1}{2} diag\big(\frac{1}{r_i |q_i^{\#}|}\big) A_d^T $$
+
+
+
+        Et alors on obtient :
+        $$\boxed{H_{\lambda} \Phi (\lambda) = \frac{-1}{2} A_d diag\big(\frac{1}{r_i |q_i^{\#}|}\big) A_d^T} $$
 \end{document}
 
