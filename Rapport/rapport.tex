@@ -262,7 +262,7 @@
             \label{courbe}
     \end{figure}
 
-    \paragraph{Stricte convexité du critère du problème \ref{pb:19} :} Pour les mêmes arguments, puis-ce que $q_c \mapsto q^{(0)} + Bq_c$ est une fonction convexe et par composition de fonctions convexes : le critère du problème \ref{pb:19} est convexe.
+    \paragraph{Stricte convexité du critère du problème \ref{pb:19} :} Pour les mêmes arguments, puis-ce que $q_c \mapsto q^{(0)} + Bq_c$ est une fonction convexe et par composition d'une fonction linéaire et d'une fonction convexe : le critère du problème \ref{pb:19} est convexe.
 
     \paragraph{Unicité de la solution du problème \ref{pb:19} :} Le critère est strictement convexe, s.c.i, cooercif puis-ce que $<p_r, q^{(0)} + Bq_c> = 0(<q^{(0)} + Bq_c, r\circ q^{(0)} + Bq_c \circ|q^{(0)} + Bq_c|>)$ et donc admet une unique solution, d'après le théorème \textbf{5.3} du cours.\\
     On en déduit alors, par équivalence des problèmes \ref{pb:14} et \ref{pb:19} que le problème \ref{pb:14} admet au moins une solution qui est unique par la stricte convexité du critère.
@@ -396,16 +396,19 @@
         Et alors on obtient :
         $$\boxed{H_{\lambda} \Phi (\lambda) = \frac{-1}{2} A_d diag\big(\frac{1}{r_i\circ|q_i^{\#}|}\big) A_d^T} $$
 
-        \paragraph{Q4.} On observe sur la figure \ref{fig:courbes_dual} les résultats suivants :
+        \paragraph{Q4.} On observe sur la figure \ref{fig:courbes_dual} les résultats suivants, synthétisés sur le tableau \ref{comparAlgodual}
         \begin{itemize}
-
-
+            \item Le nombre d'itérations pour résoudre le problème est bien plus important pour le problème dual que pour le problème primal. Par exemple, lorsque le primal avec le méthode à pas-variable met 310 itérations pour converger, le primal ne converge pas en 5000 itérations : il y a presque un facteur 10 entre la résolution du primal et celle du dual.
+            \item Les temps CPU sont plus importants pour la résolution du problème dual que pour le problème et cela n'est pas uniquement dû au nombre d'itérations
+            \item Pour la méthode à pas-fixe, il faut recalibrer le pas pour avoir une convergence relativement correcte : on a choisi 0.6.
+            \item Les allures générales des courbes ne sont pas les mêmes pour la résolution du primal et celle du dual.
+            \item La résolution du problème primal de \ref{pb:19} et du dual de \ref{pb:14} conduisent bien au même résultat (au signe - près, puis-ce que nous avons préféré résoudre un problème de maximisation plutôt que de minimisation).
         \end{itemize}
 
         \begin{figure}
             \begin{subfigure}[t]{0.4\textwidth}
                 \includegraphics[width=\textwidth]{../Images/Pas_fixe_dual.png}
-                \caption{Gradient à pas fixe}
+                \caption{Gradient à pas fixe (pas $\alpha = 0.6$)}
                 \label{fig:pas_fixe_dual}
             \end{subfigure}
             \hfill
@@ -435,5 +438,22 @@
             \caption{Comparaison des différents algorithmes implémentés sur le problème dual}
             \label{fig:courbes_dual}
         \end{figure}
+
+     
+        \begin{figure}
+            \begin{tabular}{|c|cccccc|}
+                \hline
+                Méthode & Scilab & Pas fixe & Pas variable & Polak-Ribiere & BFGS & Newton \\
+                \hline
+                Itérations & - & 5000 & 5000 & 2092 & 78 & 17\\
+                Temps CPU (s) & 0 & 0.4375 & 0.92187 & 0.46875 & 0.04687 & 0\\
+                Critère optimal & - & 3.73401 & 3.734007 & 3.734007 & 3.734007 & 3.734007\\
+                Norme du gradient & $10^-7$ & $10^-4$ & $9.10^-7$ & $7.10^-7$ & $4.10^-7$ & $7.85.10^-8$\\
+                \hline
+                \end{tabular}
+            \caption{Comparaison des différents algorithmes pour l'algorithme dual}
+            \label{comparAlgodual}
+        \end{figure}
+    
 \end{document}
 
