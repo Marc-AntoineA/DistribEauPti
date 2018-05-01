@@ -64,8 +64,6 @@ function [fopt,xopt,gopt]=Gradient_V(Oracle,xini,num_fenetre)
 //    - mise a jour des variables
 
       x = x + (alpha*D);
-      disp(alpha);
-      disp(ok);
 
 //    - evolution du gradient, du pas et du critere
       

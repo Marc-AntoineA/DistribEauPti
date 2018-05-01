@@ -2,10 +2,12 @@
 function [q_diez] = calc_q_diez(lambda)
     //calcule le q_diez, résultat le la minimisation en q
     z = (Ad'*lambda + Ar'*pr) ./ r;
-    q_diez = sign(z) .* sqrt(abs(z));
+    disp(norm(z));
+    //q_diez = sign(z) .* sqrt(abs(z));
+    q_diez = - z ./ sqrt(abs(z));
 endfunction
 
-function L = lagrange(q, lambda)
+function [L] = lagrange(q, lambda)
     //calcule le lagrangien du problème en q, lambda
     L = q'*(r.*q.*abs(q))/3 + pr'*Ar*q + lambda'*(Ad*q - fd);
 endfunction
@@ -15,6 +17,7 @@ function [F, G, ind] = OracleDG(lambda, ind)
     
     F = 0
     G = 0
+    q_diez = 0;
     
     if ind==2 then
         //-----------valeur de phi en lambda
@@ -39,5 +42,10 @@ function [F, G, ind] = OracleDG(lambda, ind)
     
     F = -F;
     G = -G;
+    
+    //disp(F);
+    //disp(G);
+    disp(q_diez);
+    disp(" ");
     
  endfunction

@@ -1,6 +1,6 @@
 function [q_diez] = calc_q_diez(lambda)
     //calcule le q_diez, résultat le la minimisation en q
-    z = (Ad'*lambda + Ar'*pr) ./ r;
+    z = -(Ad'*lambda + Ar'*pr) ./ r;
     q_diez = sign(z) .* z;
 endfunction
 
